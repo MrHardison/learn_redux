@@ -15,6 +15,7 @@ function App({ page, user, getPhotosAction, handleLoginAction }) {
         year={page.year}
         getPhotos={getPhotosAction}
         loading={page.loading}
+        error={page.error}
       />
       <User
         name={user.name}
