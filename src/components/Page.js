@@ -1,24 +1,40 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Page({ year, photos, setYear }) {
+function Page({ year, photos, getPhotos, loading }) {
   const onBtnClick = e => {
     const year = +e.target.innerText
-    setYear(year)
+    getPhotos(year)
   }
 
   return (
-    <div>
+    <div className="ib page">
       <div>
-        <button onClick={onBtnClick}>2014</button>
-        <button onClick={onBtnClick}>2015</button>
-        <button onClick={onBtnClick}>2016</button>
-        <button onClick={onBtnClick}>2017</button>
-        <button onClick={onBtnClick}>2018</button>
+        <button className="btn" onClick={onBtnClick}>
+          2014
+        </button>
+        <button className="btn" onClick={onBtnClick}>
+          2015
+        </button>
+        <button className="btn" onClick={onBtnClick}>
+          2016
+        </button>
+        <button className="btn" onClick={onBtnClick}>
+          2017
+        </button>
+        <button className="btn" onClick={onBtnClick}>
+          2018
+        </button>
+        <button className="btn" onClick={onBtnClick}>
+          2019
+        </button>
       </div>
-      <p>
-        You have {photos.length} photos by {year} year
-      </p>
+      <p className="page-year">{year} год</p>
+      {loading ? (
+        <p>Загрузка...</p>
+      ) : (
+        <p className="page-photo-count">У тебя {photos.length} фото</p>
+      )}
     </div>
   )
 }
@@ -26,6 +42,7 @@ function Page({ year, photos, setYear }) {
 Page.propTypes = {
   year: PropTypes.number.isRequired,
   photos: PropTypes.array.isRequired,
-  setYear: PropTypes.func.isRequired
+  getPhotos: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired
 }
 export { Page }

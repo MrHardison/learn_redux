@@ -2,19 +2,26 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { User } from '../components/User'
 import { Page } from '../components/Page'
-import { setYear } from '../actions/PageActions'
+import { getPhotos } from '../actions/PageActions'
+import { handleLogin } from '../actions/UserActions'
 
-import '../App.css'
+import '../index.css'
 
-function App({ page, user, setYearAction }) {
+function App({ page, user, getPhotosAction, handleLoginAction }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1 className="App-title">Мой топ фото</h1>
-      </header>
-      <p className="App-intro">Здесь будут мои самые залайканные фото</p>
-      <User name={user.name} />
-      <Page year={page.year} photos={page.photos} setYear={setYearAction} />
+    <div className="app">
+      <Page
+        photos={page.photos}
+        year={page.year}
+        getPhotos={getPhotosAction}
+        loading={page.loading}
+      />
+      <User
+        name={user.name}
+        loading={user.loading}
+        error={user.error}
+        handleLogin={handleLoginAction}
+      />
     </div>
   )
 }
@@ -25,13 +32,10 @@ const mapStateToProps = store => {
     page: store.page
   }
 }
-const mapDispatchToProps = dispatch => {
-  return {
-    setYearAction: year => {
-      dispatch(setYear(year))
-    }
-  }
-}
+const mapDispatchToProps = dispatch => ({
+  getPhotosAction: year => dispatch(getPhotos(year)),
+  handleLoginAction: () => dispatch(handleLogin())
+})
 
 export default connect(
   mapStateToProps,
